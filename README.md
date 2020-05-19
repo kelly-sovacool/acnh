@@ -3,8 +3,6 @@
 
 # acnh
 
-Animal Crossing - New Horizons
-
 <!-- badges: start -->
 
 <!-- badges: end -->
@@ -116,3 +114,30 @@ items_nature %>%
 ```
 
 ![](figures/nature_sell_hist-1.png)<!-- -->
+
+``` r
+items_profit <- items %>% 
+    mutate(net_profit = sell_value - buy_value) %>% 
+    select(name, category, sell_value, buy_value, net_profit)
+items_profit %>% 
+    filter(net_profit > 0) %>% 
+    arrange(desc(net_profit))
+#> # A tibble: 15 x 5
+#>    name                    category    sell_value buy_value net_profit
+#>    <chr>                   <chr>            <dbl>     <dbl>      <dbl>
+#>  1 Nook Inc. Flooring      Flooring          6000      1200       4800
+#>  2 Nook Inc. Wall          Wallpaper         6000      1200       4800
+#>  3 Nook Inc. Botanical Rug Flooring          5000      1000       4000
+#>  4 Nook Inc. Rug           Flooring          5000      1000       4000
+#>  5 Nook Inc. Blouson       Tops              4000       800       3200
+#>  6 Nook Inc. Knapsack      Accessories       4000       800       3200
+#>  7 Nook Inc. Umbrella      Umbrellas         3500       700       2800
+#>  8 Nook Inc. Aloha Shirt   Tops              3000       600       2400
+#>  9 Nook Inc. Tee           Tops              3000       600       2400
+#> 10 Nook Inc. Bandanna      Hats              2500       500       2000
+#> 11 Nook Inc. Cap           Hats              2500       500       2000
+#> 12 Nook Inc. Eye Mask      Accessories       2000       400       1600
+#> 13 Nook Inc. Slippers      Shoes             2000       400       1600
+#> 14 Nook Inc. Socks         Socks             2000       400       1600
+#> 15 Nook Inc. Uchiwa Fan    Tools             2000       400       1600
+```

@@ -16,8 +16,6 @@ knitr::opts_chunk$set(
 
 # acnh
 
-Animal Crossing - New Horizons
-
 <!-- badges: start -->
 <!-- badges: end -->
 
@@ -53,5 +51,14 @@ items_nature %>%
 items_nature %>% 
     ggplot(aes(x=sell_value, fill=category)) +
     geom_histogram()
+```
+
+```{r profit}
+items_profit <- items %>% 
+    mutate(net_profit = sell_value - buy_value) %>% 
+    select(name, category, sell_value, buy_value, net_profit)
+items_profit %>% 
+    filter(net_profit > 0) %>% 
+    arrange(desc(net_profit))
 ```
 
