@@ -1,0 +1,57 @@
+---
+output: 
+    github_document:
+        html_preview: false
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = 'figures/'
+)
+```
+
+# acnh
+
+Animal Crossing - New Horizons
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+Tidy Tuesday featuring Animal Crossing New Horizons data: https://github.com/rfordatascience/tidytuesday/tree/master/data/2020/2020-05-05
+
+```{r lib}
+library(here)
+library(tidyverse)
+theme_set(theme_classic())
+```
+
+```{r download}
+items <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-05/items.csv')
+head(items)
+villagers <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-05/villagers.csv')
+head(villagers)
+```
+
+```{r nature_items}
+nature_categories <- c("Bugs", "Fish", "Fossils")
+items_nature <- items %>% 
+    filter(category %in% nature_categories)
+head(items_nature)
+```
+
+```{r nature_sell_box}
+items_nature %>% 
+    ggplot(aes(x=category, y=sell_value, color=category)) +
+    geom_jitter()
+```
+
+```{r nature_sell_hist}
+items_nature %>% 
+    ggplot(aes(x=sell_value, fill=category)) +
+    geom_histogram()
+```
+
